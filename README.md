@@ -36,19 +36,20 @@ Output:
 
 ## Approach :
 We can't solve this problem in one pass through the matrix, as it will lead to wrong result.
+```
 e.g. 
 {0, 1, 1, 1},
 {1, 1, 1, 1},
 {1, 1, 1, 1},
 {1, 1, 1, 0}
-
+```
 If we just see the four adjacent cells of a cell to determine the result in one pass, it will lead to wrong result for the above matrix. Correct answer will be :
-
+```
 {0, 1, 2, 3},
 {1, 2, 3, 2},
 {2, 3, 2, 1},
 {3, 2, 1, 0}
-
+```
 ## Implementation : Dynamic Programming
 
 ```java
