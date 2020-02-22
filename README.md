@@ -35,7 +35,7 @@ Output:
 3. The cells are adjacent in only four directions: up, down, left and right.
 
 
-## Implementation :
+## Implementation : Dynamic Programming
 
 ```java
 class Solution {
