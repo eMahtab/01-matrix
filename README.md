@@ -50,7 +50,56 @@ If we just see the four adjacent cells of a cell to determine the result in one 
 {2, 3, 2, 1},
 {3, 2, 1, 0}
 ```
-## Implementation : Dynamic Programming
+
+## Implementation 1 : BFS
+```java
+class Solution {
+    private class Position {
+        int row, column;
+        Position(int row, int column) {
+            this.row = row;
+            this.column = column;
+        }
+    }
+    public int[][] updateMatrix(int[][] matrix) {
+        if(matrix == null || matrix.length == 0)
+            return matrix;
+        
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+        
+        Queue<Position> q = new LinkedList<>();
+        for(int i = 0; i < rows; i++) {
+            for(int j = 0; j < cols; j++) {
+                if(matrix[i][j] == 0)
+                    q.add(new Position(i, j));
+                else
+                    matrix[i][j] = -1;
+            }
+        }
+        int[][] directions = {{0, 1}, {0, -1}, {-1, 0}, {1, 0}};
+        int distance = 0;
+        while(!q.isEmpty()) {
+            distance++;
+            int size = q.size();
+            for(int i = 0; i < size; i++) {
+                Position pos = q.remove();
+                for(int[] direction : directions) {
+                    int r = pos.row + direction[0];
+                    int c = pos.column + direction[1];
+                    if(r >= 0 && r < matrix.length && c >= 0 && c < matrix[0].length && 
+                        matrix[r][c] == -1) {
+                        matrix[r][c] = distance;
+                        q.add(new Position(r, c));
+                    }
+                }
+            }
+        }
+       return matrix; 
+    }
+}
+```
+## Implementation 2 : Dynamic Programming
 
 ```java
 class Solution {
