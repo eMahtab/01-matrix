@@ -51,7 +51,7 @@ If we just see the four adjacent cells of a cell to determine the result in one 
 {3, 2, 1, 0}
 ```
 
-## Implementation 1 : BFS
+## Implementation 1 : BFS Approach
 ```java
 class Solution {
     private class Position {
@@ -99,6 +99,50 @@ class Solution {
     }
 }
 ```
+
+## Implementation 2 : BFS Approach
+
+```java
+class Solution {
+    public int[][] updateMatrix(int[][] matrix) {
+        if(matrix == null || matrix.length == 0)
+            return matrix;
+        
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+        Queue<int[]> q = new LinkedList<>();
+        Set<String> set = new HashSet<>();
+        for(int i = 0; i < rows; i++) {
+            for(int j = 0; j < cols; j++) {
+                if(matrix[i][j] == 0) {
+                    q.add(new int[]{i,j});
+                    set.add(i+","+j);
+                }
+            }
+        }
+        int[][] directions = { {0, 1}, {0, -1}, {-1, 0}, {1, 0}};
+        int step = 1;
+        while(!q.isEmpty()) {
+            int size = q.size();
+            for(int i = 0; i < size; i++) {
+                int[] pos = q.remove();
+                for(int[] direction : directions) {
+                    int x = pos[0] + direction[0];
+                    int y = pos[1] + direction[1];
+                    if(x >= 0 && x < rows && y >= 0 && y < cols && matrix[x][y] == 1 && !set.contains(x+","+y)) {
+                        matrix[x][y] = step;
+                        q.add(new int[]{x,y});
+                        set.add(x+","+y);
+                    }
+                }
+            }
+            step++;
+        }
+       return matrix; 
+    }
+}
+```
+
 ## Implementation 2 : Dynamic Programming
 
 ```java
